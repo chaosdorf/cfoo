@@ -1,33 +1,27 @@
-// Read an aribritary amount of input from stdin, in a safe manner.
+// Read an aribritary amount of input from stdin, in a safe and portable manner.
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-
-#define CHUNK_SIZE 100
 
 int main(int argc, char *argv[]) {
 	char *buf = NULL;
-	size_t n_read = 0;
-	size_t n_allocated = 0;
+	size_t len = 0;
 
-	while (1) {
-		char *end;
+#if defined(_GNU_SOURCE) || _POSIX_C_SOURCE >= 200809L || _XOPEN_SOURCE >= 700
+	getline(&buf, &len, stdin);
+#else
+	int c;
 
-		n_allocated += CHUNK_SIZE;
-		buf = realloc(buf, n_allocated);
-		end = &buf[n_read];
+	while ((c = getchar()) != EOF) {
+		buf = realloc(buf, ++len);
+		buf[len - 1] = (char) c;
 
-		if (!fgets(end, n_allocated - n_read, stdin))
+		if (c == '\n')
 			break;
-
-		if (strchr(end, '\n'))
-			break;
-
-		n_read += strlen(end);
 	}
+#endif
 
-	printf("You entered: %s\n", buf);
+	printf("You entered: %.*s", len, buf);
 	free(buf);
 
 	return 0;
