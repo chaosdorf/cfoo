@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <stdlib.h>
+#include <string.h>
 #include "player.h"
 
 //global static foo
@@ -31,11 +32,24 @@ void aiGetName(struct player* p) {
 }
 
 int main(int argc, char *args[]) {
+	// a game needs a banner, so draw one
+	FILE *myfile;
+	char buf[255];
+	myfile=fopen("banner.txt", "r");
+	while(!feof(myfile)){
+		memset(buf, 0, 80);
+		fread(buf, sizeof(char), sizeof(char)*79, myfile);
+		printf("%s", buf);
+	}
+	fclose(myfile);
+
+
 	// init
 	srand(time(NULL));  // TODO: alternative for ATARI!
 
 	struct player human;
 	struct player ai;
+
 	initPlayer( &human );
 	initPlayer( &ai );
 	
