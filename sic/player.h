@@ -27,6 +27,7 @@ player human;
 
 void initPlayer( struct player* p );
 void damagePlayer( struct player* p, unsigned int damage );
+void healPlayer( struct player* p, unsigned int healing );
 int isPlayerDead( struct player* p );
 
 #endif

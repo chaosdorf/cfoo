@@ -11,7 +11,7 @@ char *aiNames[] = {"The Hamster", "CatMan", "see sharp"};
 char humanName[255];
 
 void getHumanInteraction(struct player* human, struct player* ai) {
-	// do ALl user stuff here
+	// do ALL user stuff here
 	// inclusive drawing?
 	
 	printf("name:%s\n", human->name);
@@ -31,13 +31,13 @@ void getAiInteraction(struct player* ai, struct player* human) {
 }
 
 
-void humanGetName(struct player* p) {
+void getHumanName(struct player* p) {
 	printf("enter your name: ");
 	scanf("%255s", humanName);
 	p->name = humanName;
 }
 
-void aiGetName(struct player* p) {
+void getAiName(struct player* p) {
 	int r = rand() % 3;//(sizeof(*aiNames)-1);
 	//printf("random:%i\n", r);
 	//printf("sizeof:%i\n", sizeof(aiNames));
@@ -66,8 +66,8 @@ int main(int argc, char *args[]) {
 	initPlayer( &human );
 	initPlayer( &ai );
 	
-	humanGetName( &human );
-	aiGetName( &ai );
+	getHumanName( &human );
+	getAiName( &ai );
 
 	/*printf("hp:%i\n", human.hp);
 	printf("name:%s\n", human.name);
@@ -86,5 +86,9 @@ int main(int argc, char *args[]) {
 		}
 	}	
 
+	// TODO: GAME OVER screen
+	// maybe with stats?
+	printf("    GAME OVER    \n");
+	
 	return 0;
 }
