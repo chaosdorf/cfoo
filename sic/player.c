@@ -10,4 +10,24 @@ void initPlayer( struct player* p ) {
 	p->hp = 99;
 	p->ap = 10;
 	p->dp = 8;
+	
+	p->lastAction = 0;
+}
+
+int isPlayerDead( struct player* p ) {
+	if (p->hpLeft == 0) {
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+void damagePlayer( struct player* p, unsigned int damage ) {
+	//printf("damage:%i - hpleft:%i\n", damage, p->hpLeft);
+	if (p->hpLeft >= damage) {
+		p->hpLeft -= damage;
+	} else {
+		p->hpLeft = 0;
+	}
+	//printf("damage:%i - hpleft:%i\n", damage, p->hpLeft);
 }

@@ -1,5 +1,5 @@
 #!/bin/bash
-gcc -Wall -o sic si.c player.c
+gcc -Wall -o sic si.c player.c gameLogic.c
 RESULT=$?
 
 if [ $RESULT -ne 0 ]

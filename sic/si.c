@@ -4,17 +4,30 @@
 #include <stdlib.h>
 #include <string.h>
 #include "player.h"
+#include "gameLogic.h"
 
 //global static foo
 char *aiNames[] = {"The Hamster", "CatMan", "see sharp"};
 char humanName[255];
 
-void humanInteraction(struct player* p) {
+void getHumanInteraction(struct player* human, struct player* ai) {
+	// do ALl user stuff here
+	// inclusive drawing?
 	
+	printf("name:%s\n", human->name);
+	printf("hp:%i\n", human->hpLeft);
+	
+	printf("name:%s\n", ai->name);
+	printf("hp:%i\n", ai->hpLeft);
+	
+	
+	char buf[255];
+	scanf("%255s", buf);
+	human->lastAction = 1;
 }
 
-void aiInteraction(struct player* p) {
-	
+void getAiInteraction(struct player* ai, struct player* human) {
+	// TODO: create an AI!
 }
 
 
@@ -53,20 +66,25 @@ int main(int argc, char *args[]) {
 	initPlayer( &human );
 	initPlayer( &ai );
 	
-
 	humanGetName( &human );
 	aiGetName( &ai );
-	
-	
-	int keepPlaying = 0;
-	while (keepPlaying) {
-		
-	}
-	
-	printf("hp:%i\n", human.hp);
+
+	/*printf("hp:%i\n", human.hp);
 	printf("name:%s\n", human.name);
 	printf("hp:%i\n", ai.hp);
-	printf("name:%s\n", ai.name);
+	printf("name:%s\n", ai.name);*/
+
+	int keepPlaying = 1;
+	while (keepPlaying) {	
+		getHumanInteraction( &human, &ai );
+		getAiInteraction( &ai, &human );
+		
+		calcActions( &human, &ai );
+		
+		if (isPlayerDead( &human ) || isPlayerDead( &ai )) {
+			keepPlaying = 0;
+		}
+	}	
 
 	return 0;
 }
