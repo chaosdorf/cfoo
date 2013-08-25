@@ -33,9 +33,11 @@ void damagePlayer( struct player* p, unsigned int damage ) {
 }
 
 void healPlayer( struct player* p, unsigned int healing ) {
-	p->hpLeft = p->dp * healing;
+	p->hpLeft += p->dp * healing;
 	
 	if (p->hpLeft > p->hp) {
 		p->hpLeft = p->hp;
 	}	
 }
+
+

@@ -2,7 +2,7 @@
 #include "gameLogic.h"
 #include "player.h"
 
-void calcActions( struct player* human, struct player* ai ) {
+void execActions( struct player* human, struct player* ai ) {
 	//printf("human->lastAction:%i\n", human->lastAction);
 	act(human, ai);
 	act(ai, human);

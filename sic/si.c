@@ -10,27 +10,6 @@
 char *aiNames[] = {"The Hamster", "CatMan", "see sharp"};
 char humanName[255];
 
-void getHumanInteraction(struct player* human, struct player* ai) {
-	// do ALL user stuff here
-	// inclusive drawing?
-	
-	printf("name:%s\n", human->name);
-	printf("hp:%i\n", human->hpLeft);
-	
-	printf("name:%s\n", ai->name);
-	printf("hp:%i\n", ai->hpLeft);
-	
-	
-	char buf[255];
-	scanf("%255s", buf);
-	human->lastAction = 1;
-}
-
-void getAiInteraction(struct player* ai, struct player* human) {
-	// TODO: create an AI!
-}
-
-
 void getHumanName(struct player* p) {
 	printf("enter your name: ");
 	scanf("%255s", humanName);
@@ -44,6 +23,57 @@ void getAiName(struct player* p) {
 	p->name = aiNames[r];
 }
 
+void getHumanInteraction(struct player* human, struct player* ai, int actionType) {
+	// do ALL user stuff here
+	// inclusive drawing?
+	// TODO: put in include file
+	int input = 0;
+	switch( actionType ) {
+		case 1: // fight
+			printf("name:%s\n", human->name);
+			printf("hp:%i\n", human->hpLeft);
+	
+			printf("name:%s\n", ai->name);
+			printf("last action:%i\n", ai->lastAction);
+			printf("hp:%i\n", ai->hpLeft);
+			
+			//char buf[255];
+			
+			scanf("%i", &input);
+			human->lastAction = input;
+			
+			break;
+		case 2: // monsters death
+			printf("you have beaten:%s\n", ai->name);
+			scanf("%i", &input);
+			human->lastAction = input;
+			break;
+		default:
+			// main menu?
+			break;
+	}
+}
+
+void getAiInteraction(struct player* ai, struct player* human, int actionType) {
+	// TODO: create an AI!
+	// TODO: put in include file
+	int input = 0;
+	switch( actionType ) {
+		case 1: // fight
+			input = (rand() % 2) + 1;
+			printf("action: %i\n", input);
+			ai->lastAction = input;
+			break;
+		case 2: // monsters death
+			getAiName(ai);
+			initPlayer(ai);
+			// TODO: another init system for evolving AI based on human state
+			break;
+		default:
+			break;
+	}
+}
+
 int main(int argc, char *args[]) {
 	// a game needs a banner, so draw one
 	FILE *myfile;
@@ -55,7 +85,6 @@ int main(int argc, char *args[]) {
 		printf("%s", buf);
 	}
 	fclose(myfile);
-
 
 	// init
 	srand(time(NULL));  // TODO: alternative for ATARI!
@@ -76,15 +105,18 @@ int main(int argc, char *args[]) {
 
 	int keepPlaying = 1;
 	while (keepPlaying) {	
-		getHumanInteraction( &human, &ai );
-		getAiInteraction( &ai, &human );
+		getHumanInteraction( &human, &ai, 1 );
+		getAiInteraction( &ai, &human, 1 );
 		
-		calcActions( &human, &ai );
-		
-		if (isPlayerDead( &human ) || isPlayerDead( &ai )) {
+		execActions( &human, &ai );
+				
+		if (isPlayerDead(&human)) {
 			keepPlaying = 0;
+		} else if(isPlayerDead(&ai)) {
+			getHumanInteraction(&human, &ai, 2);
+			getAiInteraction(&ai, &human, 2);
 		}
-	}	
+	}
 
 	// TODO: GAME OVER screen
 	// maybe with stats?
