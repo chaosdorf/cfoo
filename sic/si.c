@@ -88,20 +88,18 @@ int main(int argc, char *args[]) {
 
 	// init
 	srand(time(NULL));  // TODO: alternative for ATARI!
-
+	// TODO: read a randomly generated name list into: aiNames
+	
 	struct player human;
 	struct player ai;
 
 	initPlayer( &human );
-	initPlayer( &ai );
-	
+	//initPlayer( &ai );
 	getHumanName( &human );
-	getAiName( &ai );
-
-	/*printf("hp:%i\n", human.hp);
-	printf("name:%s\n", human.name);
-	printf("hp:%i\n", ai.hp);
-	printf("name:%s\n", ai.name);*/
+	//getAiName( &ai );
+	
+	// init AI, "simulate" its death
+	getAiInteraction(&ai, &human, 2);
 
 	int keepPlaying = 1;
 	while (keepPlaying) {	
