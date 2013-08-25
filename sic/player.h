@@ -26,8 +26,11 @@ player human;
 */
 
 void initPlayer( struct player* p );
+int isPlayerDead( struct player* p );
+
+/* actions */
 void damagePlayer( struct player* p, unsigned int damage );
 void healPlayer( struct player* p, unsigned int healing );
-int isPlayerDead( struct player* p );
+void assignSkillPoint( struct player* p, unsigned int forWhat );
 
 #endif

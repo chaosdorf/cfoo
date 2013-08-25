@@ -40,4 +40,24 @@ void healPlayer( struct player* p, unsigned int healing ) {
 	}	
 }
 
-
+/*
+ max health points: 0
+ attack points:     1
+ defense points:    2
+*/
+void assignSkillPoint( struct player* p, unsigned int forWhat ) {
+	if (p->sp > 0) {
+		p->sp -= 1;
+		switch( forWhat ) {
+			case 1:
+				p->hp += 1;
+				break;
+			case 2:
+				p->ap += 1;
+				break;
+			case 3:
+				p->dp += 1;
+				break;
+		}
+	}
+}
