@@ -1,4 +1,5 @@
 #include "player.h"
+
 void initPlayer( struct player* p ) {
 	// -> dereference the pointer for p and acccess directly the values
 	

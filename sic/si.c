@@ -5,22 +5,16 @@
 #include <string.h>
 #include "player.h"
 #include "gameLogic.h"
+#include "ai.h"
 
 //global static foo
-char *aiNames[] = {"The Hamster", "CatMan", "see sharp"};
+//char *aiNames[] = {"The Hamster", "CatMan", "see sharp"};
 char humanName[255];
 
 void getHumanName(struct player* p) {
 	printf("enter your name: ");
 	scanf("%255s", humanName);
 	p->name = humanName;
-}
-
-void getAiName(struct player* p) {
-	int r = rand() % 3;//(sizeof(*aiNames)-1);
-	//printf("random:%i\n", r);
-	//printf("sizeof:%i\n", sizeof(aiNames));
-	p->name = aiNames[r];
 }
 
 void getHumanInteraction(struct player* human, struct player* ai, int actionType) {
@@ -50,26 +44,6 @@ void getHumanInteraction(struct player* human, struct player* ai, int actionType
 			break;
 		default:
 			// main menu?
-			break;
-	}
-}
-
-void getAiInteraction(struct player* ai, struct player* human, int actionType) {
-	// TODO: create an AI!
-	// TODO: put in include file
-	int input = 0;
-	switch( actionType ) {
-		case 1: // fight
-			input = (rand() % 2) + 1;
-			printf("action: %i\n", input);
-			ai->lastAction = input;
-			break;
-		case 2: // monsters death
-			getAiName(ai);
-			initPlayer(ai);
-			// TODO: another init system for evolving AI based on human state
-			break;
-		default:
 			break;
 	}
 }
