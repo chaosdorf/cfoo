@@ -30,12 +30,12 @@ void getHumanInteraction(struct player* human, struct player* ai, int actionType
 	int input = 0;
 	switch( actionType ) {
 		case 1: // fight
+			printf("\033[2J\033[1;1H");
 			printf("name:%s\n", human->name);
 			printf("hp:%i\n", human->hpLeft);
 			printf("name:%s\n", ai->name);
 			printf("last action:%i\n", ai->lastAction);
 			printf("hp:%i\n", ai->hpLeft);
-			printf("\033[2J\033[1;1H");
 				
 			//char buf[255];
 			
