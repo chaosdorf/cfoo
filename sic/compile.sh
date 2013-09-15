@@ -1,5 +1,5 @@
 #!/bin/bash
-gcc -Wall -o sic si.c player.c gameLogic.c ai.c 
+gcc -Wall -o sic si.c player.c gameLogic.c ai.c user.c
 RESULT=$?
 
 if [ $RESULT -ne 0 ]
@@ -10,4 +10,3 @@ else
 	chmod +x sic
 	./sic
 fi
-
