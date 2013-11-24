@@ -35,5 +35,5 @@ int main(int argc, char *args[]) {
 		testFor();
 		stopTimer();
 	}
-
+}
 
