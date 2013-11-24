@@ -4,15 +4,8 @@
 #include <sys/time.h> 
 
 int innerLoops =  1000000000;
+int i;
 struct timeval startTime;
-
-int main(int argc, char *args[]) {
-	for (int i = 0; i<5; i++) {
-		startTimer();
-		testFor();
-		stopTimer();
-	}
-}
 
 void startTimer() {
 	gettimeofday(&startTime, NULL);
@@ -31,7 +24,15 @@ void stopTimer() {
 
 void testFor() {
 	int dummyVar = 0;
-	for (int i = 0;i < innerLoops; i++) {
+	for (i = 0;i < innerLoops; i++) {
 		dummyVar = !dummyVar;
+	}
+}
+
+int main(int argc, char *args[]) {
+	for (i = 0; i<5; i++) {
+		startTimer();
+		testFor();
+		stopTimer();
 	}
 }
