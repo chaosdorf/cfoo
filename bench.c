@@ -4,7 +4,7 @@
 #include <sys/time.h> 
 
 int innerLoops =  1000000000;
-int i;
+
 struct timeval startTime;
 
 void startTimer() {
@@ -24,12 +24,14 @@ void stopTimer() {
 
 void testFor() {
 	int dummyVar = 0;
+	int i;
 	for (i = 0;i < innerLoops; i++) {
 		dummyVar = !dummyVar;
 	}
 }
 
 int main(int argc, char *args[]) {
+	int i;
 	for (i = 0; i<5; i++) {
 		startTimer();
 		testFor();
