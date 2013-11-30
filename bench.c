@@ -18,6 +18,7 @@ void stopTimer() {
 	
 	total = (stopTime.tv_sec - startTime.tv_sec) * 1000.0;      // sec to ms
 	total += (stopTime.tv_usec - startTime.tv_usec) / 1000.0;   // us to ms
+	total /= 1000;												// show as seconds 4 comparison
 	
 	printf("%f\n", total);
 }
