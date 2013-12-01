@@ -11,7 +11,7 @@ void startTimer() {
 	gettimeofday(&startTime, NULL);
 }
 
-void stopTimer() {
+void stopTimer(char description[]) {
 	struct timeval stopTime;
 	gettimeofday(&stopTime, NULL);
 	double total;
@@ -20,7 +20,7 @@ void stopTimer() {
 	total += (stopTime.tv_usec - startTime.tv_usec) / 1000.0;   // us to ms
 	total /= 1000;												// show as seconds 4 comparison
 	
-	printf("%f\n", total);
+	printf("%s:%f\n", description, total);
 }
 
 void testFor() {
@@ -31,12 +31,25 @@ void testFor() {
 	}
 }
 
+void testWhile() {
+	int dummyVar = 0;
+	int i;
+	while (i < innerLoops) {
+		dummyVar = !dummyVar;
+		i++;
+	}
+}
+
 int main(int argc, char *args[]) {
 	int i;
 	for (i = 0; i<5; i++) {
 		startTimer();
 		testFor();
-		stopTimer();
+		stopTimer("for");
+		
+		startTimer();
+		testWhile();
+		stopTimer("while");
 	}
 }
 
